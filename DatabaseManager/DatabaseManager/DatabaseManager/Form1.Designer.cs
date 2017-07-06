@@ -33,14 +33,13 @@
             this.queryButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.minimizeButton = new System.Windows.Forms.Button();
-            this.maximizeButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
+            this.maximizeButton = new System.Windows.Forms.Button();
+            this.minimizeButton = new System.Windows.Forms.Button();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
@@ -103,7 +102,6 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.updateButton);
             this.panel1.Controls.Add(this.queryTextBox);
             this.panel1.Controls.Add(this.queryButton);
             this.panel1.Controls.Add(this.clearButton);
@@ -116,22 +114,22 @@
             this.panel1.TabIndex = 9;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
-            // minimizeButton
+            // exitButton
             // 
-            this.minimizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.minimizeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.minimizeButton.FlatAppearance.BorderSize = 0;
-            this.minimizeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.minimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.minimizeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.minimizeButton.ForeColor = System.Drawing.Color.White;
-            this.minimizeButton.Location = new System.Drawing.Point(684, 1);
-            this.minimizeButton.Name = "minimizeButton";
-            this.minimizeButton.Size = new System.Drawing.Size(27, 27);
-            this.minimizeButton.TabIndex = 2;
-            this.minimizeButton.Text = "_";
-            this.minimizeButton.UseVisualStyleBackColor = false;
-            this.minimizeButton.Click += new System.EventHandler(this.minimizeButton_Click);
+            this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.exitButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.exitButton.FlatAppearance.BorderSize = 0;
+            this.exitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.ForeColor = System.Drawing.Color.White;
+            this.exitButton.Location = new System.Drawing.Point(750, 1);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(27, 27);
+            this.exitButton.TabIndex = 0;
+            this.exitButton.Text = "X";
+            this.exitButton.UseVisualStyleBackColor = false;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // maximizeButton
             // 
@@ -150,22 +148,22 @@
             this.maximizeButton.UseVisualStyleBackColor = false;
             this.maximizeButton.Click += new System.EventHandler(this.maximizeButton_Click);
             // 
-            // exitButton
+            // minimizeButton
             // 
-            this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.exitButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.exitButton.FlatAppearance.BorderSize = 0;
-            this.exitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.ForeColor = System.Drawing.Color.White;
-            this.exitButton.Location = new System.Drawing.Point(750, 1);
-            this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(27, 27);
-            this.exitButton.TabIndex = 0;
-            this.exitButton.Text = "X";
-            this.exitButton.UseVisualStyleBackColor = false;
-            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            this.minimizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.minimizeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.minimizeButton.FlatAppearance.BorderSize = 0;
+            this.minimizeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.minimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.minimizeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.minimizeButton.ForeColor = System.Drawing.Color.White;
+            this.minimizeButton.Location = new System.Drawing.Point(684, 1);
+            this.minimizeButton.Name = "minimizeButton";
+            this.minimizeButton.Size = new System.Drawing.Size(27, 27);
+            this.minimizeButton.TabIndex = 2;
+            this.minimizeButton.Text = "_";
+            this.minimizeButton.UseVisualStyleBackColor = false;
+            this.minimizeButton.Click += new System.EventHandler(this.minimizeButton_Click);
             // 
             // menuStrip2
             // 
@@ -203,16 +201,6 @@
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
             this.helpToolStripMenuItem.Text = "Help";
             // 
-            // updateButton
-            // 
-            this.updateButton.Location = new System.Drawing.Point(468, 23);
-            this.updateButton.Name = "updateButton";
-            this.updateButton.Size = new System.Drawing.Size(90, 75);
-            this.updateButton.TabIndex = 9;
-            this.updateButton.Text = "Update";
-            this.updateButton.UseVisualStyleBackColor = true;
-            this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -248,7 +236,6 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.Button updateButton;
     }
 }
 

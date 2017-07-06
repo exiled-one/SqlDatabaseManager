@@ -21,10 +21,13 @@ C:\Users\SniperWolf\Downloads\DatabaseManager-41abe257626020691bfc65c62bbeac9c80
 C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\DatabaseManager\DatabaseManager\DatabaseManager\bin\Debug\DatabaseManager.exe.config
 C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\DatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.exe
 C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\DatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.pdb
-C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\DatabaseManager\DatabaseManager\DatabaseManager\bin\Debug\DatabaseManager.exe
-C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\DatabaseManager\DatabaseManager\DatabaseManager\bin\Debug\DatabaseManager.pdb
-C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\DatabaseManager\DatabaseManager\DatabaseManager\bin\Debug\MySql.Data.dll
-C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\DatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.csprojResolveAssemblyReference.cache
-C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\DatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.Form1.resources
-C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\DatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.Properties.Resources.resources
-C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\DatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.csproj.GenerateResource.Cache
+D:\SniperWolf69\DatabaseManager\DatabaseManager\DatabaseManager\bin\Debug\DatabaseManager.exe.config
+D:\SniperWolf69\DatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.exe
+D:\SniperWolf69\DatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.pdb
+D:\SniperWolf69\DatabaseManager\DatabaseManager\DatabaseManager\bin\Debug\DatabaseManager.exe
+D:\SniperWolf69\DatabaseManager\DatabaseManager\DatabaseManager\bin\Debug\DatabaseManager.pdb
+D:\SniperWolf69\DatabaseManager\DatabaseManager\DatabaseManager\bin\Debug\MySql.Data.dll
+D:\SniperWolf69\DatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.csprojResolveAssemblyReference.cache
+D:\SniperWolf69\DatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.Form1.resources
+D:\SniperWolf69\DatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.Properties.Resources.resources
+D:\SniperWolf69\DatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.csproj.GenerateResource.Cache

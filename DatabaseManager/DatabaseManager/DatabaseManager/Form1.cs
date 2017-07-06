@@ -15,6 +15,7 @@ namespace DatabaseManager
 {
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
@@ -33,7 +34,7 @@ namespace DatabaseManager
 
         private void DisplayTable1(Task task)
         {
-            t = network.GetTable();
+            t  = network.GetTable();
             List<Column> columns = t.GetColumns();
             List<Row> rows = t.GetRows();
 
@@ -86,6 +87,7 @@ namespace DatabaseManager
                 if (dataGridView1.Columns.Count > 0)
                 {
                     int count = dataGridView1.Columns.Count;
+
                     for (int index = 0; index < count; index++)
                     {
                         dataGridView1.Columns.RemoveAt(0);
@@ -151,9 +153,6 @@ namespace DatabaseManager
             WindowState = FormWindowState.Minimized;
         }
 
-        private void updateButton_Click(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }
