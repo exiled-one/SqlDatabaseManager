@@ -16,6 +16,7 @@ namespace DatabaseManager
 
         private List<Column> columns;
         private List<Row> rows;
+        private List<CellChange> changes;
 
         public Table(string n, int cols, int key)
         {
@@ -24,18 +25,8 @@ namespace DatabaseManager
             this.indexOfPrimaryKey = key;
             columns = new List<Column>();
             rows = new List<Row>();
+            changes = new List<CellChange>();
 
-            //Column c = new Column("BusinessEntityID", DataType.Integer);
-            //Column c1 = new Column("EmailAddressID", DataType.Integer);
-            //Column c2 = new Column("EmailAddress", DataType.String);
-            //Column c3 = new Column("GUID", DataType.String);
-            //Column c4 = new Column("Date", DataType.String);
-
-            //AddColumn(c);
-            //AddColumn(c1);
-            //AddColumn(c2);
-            //AddColumn(c3);
-            //AddColumn(c4);
 
         }
 
@@ -66,6 +57,16 @@ namespace DatabaseManager
         public void AddRow(Row r)
         {
             rows.Add(r);
+        }
+
+        public void AddChange(CellChange change)
+        {
+            changes.Add(change);
+        }
+
+        public List<CellChange> GetChanges()
+        {
+            return changes;
         }
 
         public List<Column> GetColumns()

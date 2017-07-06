@@ -15,11 +15,7 @@ namespace DatabaseManager
 {
     public partial class Form1 : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-        }
-
+        //For moving Window with no border style / title bar.
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HTCAPTION = 0x2;
         [DllImport("User32.dll")]
@@ -27,8 +23,22 @@ namespace DatabaseManager
         [DllImport("User32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
+        //Fields
         Networking network = new Networking();
         Table t;
+        ReSize resize = new ReSize();     // ReSize Class "/\" To Help Resize Form <None Style>
+
+        //For ReSize
+        private const int cGrip = 16;      // Grip size
+        private const int cCaption = 32;   // Caption bar height;
+
+        public Form1()
+        {
+            InitializeComponent();
+            this.SetStyle(ControlStyles.ResizeRedraw, true);
+        }
+
+       
 
 
         private void DisplayTable1(Task task)
@@ -153,7 +163,104 @@ namespace DatabaseManager
 
         private void updateButton_Click(object sender, EventArgs e)
         {
+            clearTable();
+            object query = queryTextBox.Text;
+            Action<object> action;
+            action = network.Update;
+            Task task = new Task(action, query);
+            task.Start();
+        }
 
+        // methods for ReSize class to resize the form with FormBorderStyle.None
+        //----------------------------------------------------------------------
+
+        public override Size MinimumSize // forms minimum size
+        {
+            get
+            {
+                return base.MinimumSize;
+            }
+            set
+            {
+                base.MinimumSize = new Size(179, 51); 
+            }
+        }
+
+        //
+        //override  WndProc  
+        //
+        protected override void WndProc(ref Message m) // sends resize messages to 
+        {
+            //****************************************************************************
+
+            int x = (int)(m.LParam.ToInt64() & 0xFFFF);               //get x mouse position
+            int y = (int)((m.LParam.ToInt64() & 0xFFFF0000) >> 16);   //get y mouse position  you can gave (x,y) it from "MouseEventArgs" too
+            Point pt = PointToClient(new Point(x, y));
+
+            if (m.Msg == 0x84)
+            {
+                switch (resize.getMosuePosition(pt, this))
+                {
+                    case "l": m.Result = (IntPtr)10; return;  // the Mouse on Left Form
+                    case "r": m.Result = (IntPtr)11; return;  // the Mouse on Right Form
+                    case "a": m.Result = (IntPtr)12; return;
+                    case "la": m.Result = (IntPtr)13; return;
+                    case "ra": m.Result = (IntPtr)14; return;
+                    case "u": m.Result = (IntPtr)15; return;
+                    case "lu": m.Result = (IntPtr)16; return;
+                    case "ru": m.Result = (IntPtr)17; return; // the Mouse on Right_Under Form
+                    case "": m.Result = pt.Y < 32 /*mouse on title Bar*/ ? (IntPtr)2 : (IntPtr)1; return;
+
+                }
+            }
+
+            base.WndProc(ref m);
+
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                object objId = dataGridView1.Rows[e.RowIndex].Cells[0].Value;
+                object objName = dataGridView1.Columns[e.ColumnIndex].Name;
+                object value = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                int id = Convert.ToInt32(objId);
+                string name = objName.ToString();             
+
+                CellChange change = new CellChange(id, name, value);
+                t.AddChange(change);
+
+                //MessageBox.Show("colindex" + e.ColumnIndex.ToString());
+                //MessageBox.Show("rowindex" + e.RowIndex.ToString());
+                //MessageBox.Show("Column Name: " + dataGridView1.Columns[e.ColumnIndex].Name);             
+                //MessageBox.Show("New Value:  " + dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                //MessageBox.Show("Primary Key ID# " + dataGridView1.Rows[e.RowIndex].Cells[0].Value);
+               
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            List<CellChange> changes = t.GetChanges();
+
+            foreach(CellChange change in changes)
+            {
+                //TODO: Implement a way to store the selected table name.
+                //TODO: Implement a way that stores the primary key column name of selected table.
+                //TODO: Add those to be dynamically determined for the command string below.
+                //TODO: Implement a way to determine tha value type of change.Value
+                //TODO: So that this method can deal with all value types supported by SQL.
+
+                string query = $"UPDATE Person.EmailAddress SET {change.ColName} = '{change.Value}' WHERE EmailAddressID = {change.Id};";
+                network.Save(query);
+            }
+           
         }
     }
 }
+

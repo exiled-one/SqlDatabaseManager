@@ -24,6 +24,44 @@ namespace DatabaseManager
             return t;
         }
 
+        public void Save(string query)
+        {
+            SqlConnection conn = new SqlConnection(myConnectionString);
+
+            conn.Open();
+
+            Console.WriteLine("Connected for saving...");
+
+            SqlCommand cmd = new SqlCommand(query, conn);
+
+            int result = cmd.ExecuteNonQuery();
+
+            Console.WriteLine($"Result: {result}");
+
+            conn.Close();
+
+        }
+        public async void Update(object objQuery)
+        {
+
+            string query = objQuery as string;
+
+            SqlConnection conn = new SqlConnection(myConnectionString);
+
+            conn.Open();
+
+            Console.WriteLine("Connected for updating...");
+
+            SqlCommand cmd = new SqlCommand(query, conn);
+
+            int result = cmd.ExecuteNonQuery();
+
+            Console.WriteLine($"Result: {result}");
+
+            conn.Close();
+            
+
+        }
         public async void Query(object objQuery)
         {
             
