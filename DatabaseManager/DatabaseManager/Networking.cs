@@ -11,6 +11,12 @@ namespace DatabaseManager
 {
     class Networking
     {
+        //TODO: write method to grab the table name when the  first query is run.
+        //TODO: or set it up so that the database schema/ list of tables is pulled automatically when
+        //TODO: the database is first connected to, and then the table name changes depending on which one
+        //TODO: is selected.
+        
+        
         Table t = new Table("EmailAddress", 5, 0);
         string myConnectionString;
 
@@ -19,11 +25,13 @@ namespace DatabaseManager
             myConnectionString = @"Server=DESKTOP-55LU8MU\TEST;Database=TESTDB;User Id=admin; Password=1234qwert;";
         }
 
+        // returns table object with all of the table data stored in it
         public Table GetTable()
         {
             return t;
         }
 
+        // performs SQL UPDATE to write all of the changes the user made in datagridview1
         public void Save(string query)
         {
             SqlConnection conn = new SqlConnection(myConnectionString);
@@ -41,6 +49,8 @@ namespace DatabaseManager
             conn.Close();
 
         }
+
+        // performs a single update command pulled from the queryTextBox when the updateButton is clicked
         public async void Update(object objQuery)
         {
 
@@ -59,9 +69,11 @@ namespace DatabaseManager
             Console.WriteLine($"Result: {result}");
 
             conn.Close();
-            
+
 
         }
+
+        // performs query typed in queryTextBox when the queryButton is clicked
         public async void Query(object objQuery)
         {
             

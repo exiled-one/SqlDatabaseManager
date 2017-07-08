@@ -40,7 +40,7 @@ namespace DatabaseManager
 
        
 
-
+        // grabs the table from the table class and displays it in datagridview1
         private void DisplayTable1(Task task)
         {
             t = network.GetTable();
@@ -64,7 +64,8 @@ namespace DatabaseManager
  
             }
         }            
- 
+        
+        // sends the query typed in queryTextBox to the Query method of the networking class
         private  void queryButton_Click(object sender, EventArgs e)
         {
             try
@@ -89,6 +90,7 @@ namespace DatabaseManager
             }
         }
 
+        // clears datagridview1 rows & columns, as well as empties the row and column lists in the table class
         private void clearTable()
         {
             try
@@ -120,21 +122,25 @@ namespace DatabaseManager
             
         }
 
+        // clear button
         private void clearButton_Click(object sender, EventArgs e)
         {         
                 clearTable();          
         }
 
+        // exit button
         private void exitButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        // maximize button
         private void maximizeButton_Click(object sender, EventArgs e)
         {
             maxmimizeScreen();
         }
 
+        // if the screen is maximized it sets it to normal state, otherwise it maximizes it
         private void maxmimizeScreen()
         {
             if (WindowState == FormWindowState.Maximized)
@@ -147,6 +153,7 @@ namespace DatabaseManager
             }
         }
 
+        // event for when the panel gets dragged. allows window to be moved with FormBorderStyle set to none.
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -156,11 +163,13 @@ namespace DatabaseManager
             }
         }
 
+        // minimize button
         private void minimizeButton_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
         }
 
+        // update button
         private void updateButton_Click(object sender, EventArgs e)
         {
             clearTable();
@@ -218,6 +227,8 @@ namespace DatabaseManager
 
         }
 
+        // datagridview1 cell value changed event. Creates an object to store the index of cell, and data.
+        // stores the data in the Table class.
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -244,6 +255,8 @@ namespace DatabaseManager
             }
         }
 
+        // grabs the changes list from Table class and sends them to the Networking classes Save method.
+        // this in turn performs the SQL Update command for each change to update the DB.
         private void saveButton_Click(object sender, EventArgs e)
         {
             List<CellChange> changes = t.GetChanges();
