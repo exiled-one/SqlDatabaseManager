@@ -1,0 +1,9 @@
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\Tester\bin\Debug\Tester.exe.config
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\Tester\bin\Debug\Tester.exe
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\Tester\bin\Debug\Tester.pdb
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\Tester\obj\Debug\Tester.csprojResolveAssemblyReference.cache
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\Tester\obj\Debug\Tester.Form1.resources
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\Tester\obj\Debug\Tester.Properties.Resources.resources
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\Tester\obj\Debug\Tester.csproj.GenerateResource.Cache
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\Tester\obj\Debug\Tester.exe
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\Tester\obj\Debug\Tester.pdb

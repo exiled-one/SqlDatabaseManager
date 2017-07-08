@@ -31,3 +31,10 @@ C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\DatabaseManager\Databa
 C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\DatabaseManager\bin\Debug\DatabaseManager.exe.config
 C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.exe
 C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.pdb
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\DatabaseManager\bin\Debug\DatabaseManager.exe
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\DatabaseManager\bin\Debug\DatabaseManager.pdb
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\DatabaseManager\bin\Debug\MySql.Data.dll
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.csprojResolveAssemblyReference.cache
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.Form1.resources
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.Properties.Resources.resources
+C:\Users\SniperWolf\Documents\Visual Studio 2015\Projects\ClonedDatabaseManager\DatabaseManager\DatabaseManager\obj\Debug\DatabaseManager.csproj.GenerateResource.Cache

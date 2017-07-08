@@ -20,6 +20,7 @@ namespace DatabaseManager
         private List<Column> columns;
         private List<Row> rows;
         private List<CellChange> changes;
+        
 
         public Table(string n, int cols, int key)
         {

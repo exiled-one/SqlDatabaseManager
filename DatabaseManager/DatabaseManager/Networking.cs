@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MySql.Data;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace DatabaseManager
@@ -19,10 +17,13 @@ namespace DatabaseManager
         
         Table t = new Table("EmailAddress", 5, 0);
         string myConnectionString;
+        TableSchema tableSchema;
 
         public Networking()
         {
             myConnectionString = @"Server=DESKTOP-55LU8MU\TEST;Database=TESTDB;User Id=admin; Password=1234qwert;";
+            tableSchema = new TableSchema(myConnectionString);
+            
         }
 
         // returns table object with all of the table data stored in it
