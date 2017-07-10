@@ -17,9 +17,10 @@ namespace DatabaseManager
             this.PrimaryKeyList = new List<PrimaryKey>();
             this.ForeignKeyList = new List<ForeignKey>();
             this.UniqueKeyList = new List<UniqueKey>();
+            this.TableList1 = new List<Tables>();
 
             GetDataBaseSchema(connectionString);
-            ShowDataBaseSchema();
+           // ShowDataBaseSchema();
 
         }
 
@@ -28,59 +29,60 @@ namespace DatabaseManager
         public List<PrimaryKey> PrimaryKeyList { get; set; }
         public List<UniqueKey> UniqueKeyList { get; set; }
         public List<ForeignKey> ForeignKeyList { get; set; }
+        public List<Tables> TableList1 { get; set; }
 
         private void ShowDataBaseSchema()
         {
-            Console.WriteLine();
-            Console.WriteLine("TableList");
-            Console.WriteLine();
-            foreach (string s in TableList)
-            {
-                Console.WriteLine(s);
-            }
-            Console.WriteLine();
-            Console.WriteLine("ColumnList");
-            Console.WriteLine("--------------------------------------------------------");
-            foreach (Columns c in ColumnList)
-            {
-                Console.WriteLine();
-                Console.WriteLine(c.TableName);
-                Console.WriteLine(c.FieldName);
-                Console.WriteLine();
-            }
-            Console.WriteLine();
-            Console.WriteLine("PrimaryKeyList");
-            Console.WriteLine("--------------------------------------------------------");
-            foreach (PrimaryKey pk in PrimaryKeyList)
-            {
-                Console.WriteLine();
-                Console.WriteLine(pk.TableName);
-                Console.WriteLine(pk.FieldName);
-                Console.WriteLine(pk.PrimaryKeyName);
-                Console.WriteLine();
-            }
-            Console.WriteLine();
-            Console.WriteLine("UniqueKeyList");
-            Console.WriteLine("--------------------------------------------------------");
-            foreach (UniqueKey uk in UniqueKeyList)
-            {
-                Console.WriteLine();
-                Console.WriteLine(uk.TableName);
-                Console.WriteLine(uk.FieldName);
-                Console.WriteLine(uk.UniqueKeyName);
-                Console.WriteLine();
-            }
-            Console.WriteLine();
-            Console.WriteLine("ForeignKeyList");
-            Console.WriteLine("--------------------------------------------------------");
-            foreach (ForeignKey fk in ForeignKeyList)
-            {
-                Console.WriteLine();
-                Console.WriteLine(fk.TableName);
-                Console.WriteLine(fk.ForeignName);
-                Console.WriteLine();
+            //Console.WriteLine();
+            //Console.WriteLine("TableList");
+            //Console.WriteLine();
+            //foreach (string s in TableList)
+            //{
+            //    Console.WriteLine(s);
+            //}
+            //Console.WriteLine();
+            //Console.WriteLine("ColumnList");
+            //Console.WriteLine("--------------------------------------------------------");
+            //foreach (Columns c in ColumnList)
+            //{
+            //    Console.WriteLine();
+            //    Console.WriteLine(c.TableName);
+            //    Console.WriteLine(c.FieldName);
+            //    Console.WriteLine();
+            //}
+            //Console.WriteLine();
+            //Console.WriteLine("PrimaryKeyList");
+            //Console.WriteLine("--------------------------------------------------------");
+            //foreach (PrimaryKey pk in PrimaryKeyList)
+            //{
+            //    Console.WriteLine();
+            //    Console.WriteLine(pk.TableName);
+            //    Console.WriteLine(pk.FieldName);
+            //    Console.WriteLine(pk.PrimaryKeyName);
+            //    Console.WriteLine();
+            //}
+            //Console.WriteLine();
+            //Console.WriteLine("UniqueKeyList");
+            //Console.WriteLine("--------------------------------------------------------");
+            //foreach (UniqueKey uk in UniqueKeyList)
+            //{
+            //    Console.WriteLine();
+            //    Console.WriteLine(uk.TableName);
+            //    Console.WriteLine(uk.FieldName);
+            //    Console.WriteLine(uk.UniqueKeyName);
+            //    Console.WriteLine();
+            //}
+            //Console.WriteLine();
+            //Console.WriteLine("ForeignKeyList");
+            //Console.WriteLine("--------------------------------------------------------");
+            //foreach (ForeignKey fk in ForeignKeyList)
+            //{
+            //    Console.WriteLine();
+            //    Console.WriteLine(fk.TableName);
+            //    Console.WriteLine(fk.ForeignName);
+            //    Console.WriteLine();
 
-            }
+            //}
         }
         protected void GetDataBaseSchema(string ConnectionString)
         {
@@ -99,8 +101,13 @@ namespace DatabaseManager
 
                 foreach (System.Data.DataRow rowTable in schemaTables.Rows)
                 {
+
+                    // index 1 is the schema name and index 2 is the tablename
                     String tableName = rowTable.ItemArray[2].ToString();
                     this.TableList.Add(tableName);
+                    //string schemaName = rowTable.ItemArray[1].ToString();
+                    //Tables table = new DatabaseManager.Tables() { TableName = tableName, SchemaName = schemaName };
+                    //this.TableList1.Add(table);
 
                     string[] restrictionsColumns = new string[4];
                     restrictionsColumns[2] = tableName;
@@ -169,7 +176,11 @@ namespace DatabaseManager
         }
 
     }
-
+    public class Tables
+    {
+        public string TableName { get; set; }
+        public string SchemaName { get; set; }
+    }
     public class Columns
     {
         public string TableName { get; set; }

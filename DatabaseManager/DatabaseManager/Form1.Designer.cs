@@ -33,6 +33,8 @@
             this.queryButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.saveButton = new System.Windows.Forms.Button();
             this.updateButton = new System.Windows.Forms.Button();
             this.minimizeButton = new System.Windows.Forms.Button();
             this.maximizeButton = new System.Windows.Forms.Button();
@@ -41,7 +43,6 @@
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
@@ -54,20 +55,24 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(7, 109);
+            this.dataGridView1.Location = new System.Drawing.Point(210, 109);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(780, 514);
+            this.dataGridView1.Size = new System.Drawing.Size(577, 514);
             this.dataGridView1.TabIndex = 4;
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             // 
             // queryTextBox
             // 
+            this.queryTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.queryTextBox.Location = new System.Drawing.Point(2, 23);
             this.queryTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.queryTextBox.Multiline = true;
             this.queryTextBox.Name = "queryTextBox";
             this.queryTextBox.Size = new System.Drawing.Size(275, 79);
             this.queryTextBox.TabIndex = 6;
+            this.queryTextBox.Text = "Enter your SQL query here...";
+            this.queryTextBox.Enter += new System.EventHandler(this.queryTextBox_Enter);
+            this.queryTextBox.Leave += new System.EventHandler(this.queryTextBox_Leave);
             // 
             // queryButton
             // 
@@ -106,6 +111,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.treeView1);
             this.panel1.Controls.Add(this.saveButton);
             this.panel1.Controls.Add(this.updateButton);
             this.panel1.Controls.Add(this.queryTextBox);
@@ -119,6 +125,26 @@
             this.panel1.Size = new System.Drawing.Size(780, 632);
             this.panel1.TabIndex = 9;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            // 
+            // treeView1
+            // 
+            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.treeView1.Location = new System.Drawing.Point(3, 105);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(202, 513);
+            this.treeView1.TabIndex = 11;
+            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
+            // 
+            // saveButton
+            // 
+            this.saveButton.Location = new System.Drawing.Point(578, 23);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(87, 74);
+            this.saveButton.TabIndex = 10;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // updateButton
             // 
@@ -217,16 +243,6 @@
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
             this.helpToolStripMenuItem.Text = "Help";
             // 
-            // saveButton
-            // 
-            this.saveButton.Location = new System.Drawing.Point(578, 23);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(87, 74);
-            this.saveButton.TabIndex = 10;
-            this.saveButton.Text = "Save";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -264,6 +280,7 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.Button updateButton;
         private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.TreeView treeView1;
     }
 }
 

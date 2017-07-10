@@ -26,7 +26,11 @@ namespace DatabaseManager
         //Fields
         Networking network = new Networking();
         Table t;
-        ReSize resize = new ReSize();     // ReSize Class "/\" To Help Resize Form <None Style>
+        ReSize resize = new ReSize();   // ReSize Class "/\" To Help Resize Form <None Style>
+        TableSchema ts;
+        List<Columns> cols;
+        List<string> tl;
+       
 
         //For ReSize
         private const int cGrip = 16;      // Grip size
@@ -36,9 +40,38 @@ namespace DatabaseManager
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.ResizeRedraw, true);
+            ts = new TableSchema(network.GetConnectionString());
+            cols = ts.ColumnList;
+            tl = ts.TableList;
+            DisplayTree();
         }
 
-       
+        private void DisplayTree1()
+        {
+            tl.Sort();
+
+            
+        }
+
+        private void DisplayTree()
+        {
+            tl.Sort();
+
+            foreach (string s in tl)
+            {
+                treeView1.Nodes.Add(s, s);
+
+                foreach (Columns col in cols)
+                {
+
+                    if (s == col.TableName)
+                    {
+                        treeView1.Nodes[s].Nodes.Add(col.FieldName);
+                    }
+
+                }
+            }
+        }
 
         // grabs the table from the table class and displays it in datagridview1
         private void DisplayTable1(Task task)
@@ -90,6 +123,27 @@ namespace DatabaseManager
             }
         }
 
+        private void doQuery(string query)
+        {
+            try
+            {
+                clearTable();
+                Action<object> action;
+                action = network.Query1;
+                Task task = new Task(action, query);
+                Task task2 = task.ContinueWith(DisplayTable1);
+                task.Start();
+            }
+           catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.InnerException.ToString());
+                MessageBox.Show(ex.HelpLink);
+                MessageBox.Show(ex.HResult.ToString());
+                MessageBox.Show(ex.Source.ToString());
+            }
+        }
         // clears datagridview1 rows & columns, as well as empties the row and column lists in the table class
         private void clearTable()
         {
@@ -273,6 +327,27 @@ namespace DatabaseManager
                 network.Save(query);
             }
            
+        }
+
+        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {            
+            doQuery(e.Node.Text);
+        }   
+
+        private void queryTextBox_Enter(object sender, EventArgs e)
+        {
+            if (queryTextBox.Text == "Enter your SQL query here...")
+            {
+                queryTextBox.Text = String.Empty;
+            }
+        }
+
+        private void queryTextBox_Leave(object sender, EventArgs e)
+        {
+            if(queryTextBox.Text == String.Empty)
+            {
+                queryTextBox.Text = "Enter your SQL query here...";
+            }
         }
     }
 }

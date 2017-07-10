@@ -32,6 +32,10 @@ namespace DatabaseManager
             return t;
         }
 
+        public string GetConnectionString()
+        {
+            return myConnectionString;
+        }
         // performs SQL UPDATE to write all of the changes the user made in datagridview1
         public void Save(string query)
         {
@@ -72,6 +76,56 @@ namespace DatabaseManager
             conn.Close();
 
 
+        }
+
+        public async void Query1(object objTable)
+        {
+
+
+            try
+            {
+                string table = objTable as string;
+
+                string query = $"SELECT * FROM Person.{table};";
+
+                SqlConnection conn = new SqlConnection(myConnectionString);
+
+                conn.Open();
+
+                Console.WriteLine("Connected...");
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                object[] arrayRow = new object[rdr.FieldCount];
+
+                while (rdr.Read())
+                {
+                    for (int count = 0; count < rdr.FieldCount; count++)
+                    {
+                        arrayRow[count] = rdr[count];
+                    }
+                    Row row = new DatabaseManager.Row(arrayRow);
+                    t.AddRow(row);
+                }
+
+                for (int index = 0; index < rdr.FieldCount; index++)
+                {
+                    Column column = new Column(rdr.GetName(index), rdr.GetDataTypeName(index));
+                    t.AddColumn(column);
+                }
+
+                rdr.Close();
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+            }
         }
 
         // performs query typed in queryTextBox when the queryButton is clicked
