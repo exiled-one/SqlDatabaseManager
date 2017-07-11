@@ -29,7 +29,7 @@ namespace DatabaseManager
         ReSize resize = new ReSize();   // ReSize Class "/\" To Help Resize Form <None Style>
         TableSchema ts;
         List<Columns> cols;
-        List<string> tl;
+        List<Tables> tl;
        
 
         //For ReSize
@@ -45,31 +45,29 @@ namespace DatabaseManager
             tl = ts.TableList;
             DisplayTree();
         }
-
-        private void DisplayTree1()
-        {
-            tl.Sort();
-
-            
-        }
+     
 
         private void DisplayTree()
         {
-            tl.Sort();
+           // tl.Sort();
 
-            foreach (string s in tl)
+            foreach (Tables table in tl)
             {
-                treeView1.Nodes.Add(s, s);
 
-                foreach (Columns col in cols)
+                if(!treeView1.Nodes.ContainsKey(table.SchemaName))
                 {
+                    treeView1.Nodes.Add(table.SchemaName, table.SchemaName);
+                    
+                }           
 
-                    if (s == col.TableName)
-                    {
-                        treeView1.Nodes[s].Nodes.Add(col.FieldName);
-                    }
-
+            }
+            foreach (Tables table in tl)
+            {
+                if(!treeView1.Nodes[table.SchemaName].Nodes.ContainsKey(table.TableName))
+                {
+                    treeView1.Nodes[table.SchemaName].Nodes.Add(table.TableName);
                 }
+               
             }
         }
 
@@ -123,14 +121,15 @@ namespace DatabaseManager
             }
         }
 
-        private void doQuery(string query)
+        private void doQuery(object query, object schema)
         {
             try
             {
                 clearTable();
-                Action<object> action;
-                action = network.Query1;
-                Task task = new Task(action, query);
+                //Action<object, object> action;
+                //action = network.Query1;
+                Task task = new Task(() => network.Query1(query, schema));
+                //Task task = new Task(action, query);
                 Task task2 = task.ContinueWith(DisplayTable1);
                 task.Start();
             }
@@ -285,15 +284,39 @@ namespace DatabaseManager
         // stores the data in the Table class.
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            string primaryKey = null;
+            string colType = null;
+
+            List<PrimaryKey> primaryKeys = ts.PrimaryKeyList;
             try
             {
                 object objId = dataGridView1.Rows[e.RowIndex].Cells[0].Value;
                 object objName = dataGridView1.Columns[e.ColumnIndex].Name;
                 object value = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-                int id = Convert.ToInt32(objId);
-                string name = objName.ToString();             
 
-                CellChange change = new CellChange(id, name, value);
+                int id = Convert.ToInt32(objId);
+                string name = objName.ToString();
+
+                string schema = treeView1.SelectedNode.Parent.Name;
+                string tableName = treeView1.SelectedNode.Text;
+               
+                foreach(PrimaryKey pk in primaryKeys)
+                {
+                    if(pk.TableName == tableName)
+                    {
+                        primaryKey = pk.FieldName;
+                    }
+                }    
+                
+                foreach(Columns c in cols)
+                {
+                    if(c.TableName == tableName && c.FieldName == name)
+                    {
+                        colType = c.ColumnType;
+                    }
+                }         
+
+                CellChange change = new CellChange(id, name, value, schema, tableName, primaryKey, colType);
                 t.AddChange(change);
 
                 //MessageBox.Show("colindex" + e.ColumnIndex.ToString());
@@ -317,21 +340,46 @@ namespace DatabaseManager
 
             foreach(CellChange change in changes)
             {
-                //TODO: Implement a way to store the selected table name.
-                //TODO: Implement a way that stores the primary key column name of selected table.
+
                 //TODO: Add those to be dynamically determined for the command string below.
                 //TODO: Implement a way to determine tha value type of change.Value
                 //TODO: So that this method can deal with all value types supported by SQL.
+                //TODO:  Look at implementing a dictionary as shown in link below
+                // https://stackoverflow.com/questions/1720707/getschemacolumns-return-datatype
+                //TODO: Look into foriegn key restrictions and what it means
 
-                string query = $"UPDATE Person.EmailAddress SET {change.ColName} = '{change.Value}' WHERE EmailAddressID = {change.Id};";
-                network.Save(query);
+                Console.WriteLine(change.ColType);
+                if(change.ColType == "nvarchar")
+                {
+                    string query = $"UPDATE {change.Schema}.{change.Table} SET {change.ColName} = '{change.Value}' WHERE {change.PrimaryKeyName} = {change.Id};";
+                    network.Save(query);
+                }
+                
+                if(change.ColType == "int")
+                {
+                    string query = $"UPDATE {change.Schema}.{change.Table} SET {change.ColName} = {change.Value} WHERE {change.PrimaryKeyName} = {change.Id};";
+                    network.Save(query);
+                }
+
+                if (change.ColType == "tinyint")
+                {
+                    string query = $"UPDATE {change.Schema}.{change.Table} SET {change.ColName} = {change.Value} WHERE {change.PrimaryKeyName} = {change.Id};";
+                    network.Save(query);
+                }
             }
            
         }
 
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {            
-            doQuery(e.Node.Text);
+        {
+            treeView1.SelectedNode = e.Node; // makes sure that the node gets selected if user clicks NEAR the node (consider changing to isSelected event)
+            
+
+            if(e.Node.Parent != null) // if the node IS  a parent node then it should have a NULL parent
+            {
+                doQuery(e.Node.Text, e.Node.Parent.Text); // only fires if the node is a child node (table instead of schema)
+            }         
+            
         }   
 
         private void queryTextBox_Enter(object sender, EventArgs e)

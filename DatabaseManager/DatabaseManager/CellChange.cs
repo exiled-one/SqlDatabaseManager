@@ -15,12 +15,20 @@ namespace DatabaseManager
         private string colName; // column name being changed, needed to format SQL UPDATE statement
         private object value1; //  new value to be sent to database in UPDATE command
         private int id; // id is the primary key index of the cell that needs to be UPDATED.
+        private string schema;
+        private string table;
+        private string primaryKeyName;
+        private string colType;
 
-        public CellChange(int i, string c, object v)
+        public CellChange(int i, string c, object v, string s, string t, string pkn, string ct)
         {
             id = i;
             colName = c;
             value1 = v;
+            schema = s;
+            table = t;
+            primaryKeyName = pkn;
+            colType = ct;
         }
 
         
@@ -43,6 +51,28 @@ namespace DatabaseManager
            
         }
 
+        public string Schema // returns schema
+        {
+            get { return schema; }
+
+        }
+
+        public string Table // returns table
+        {
+            get { return table; }
+
+        }
+
+        public string PrimaryKeyName // returns primary key name
+        {
+            get { return primaryKeyName; }
+
+        }
+
+        public string ColType // String representation of the SQL type of the column being changed
+        {
+            get { return colType; }
+        }
 
     }
 }

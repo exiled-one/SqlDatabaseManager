@@ -12,24 +12,24 @@ namespace DatabaseManager
     {
         public TableSchema(string connectionString)
         {
-            this.TableList = new List<string>();
+           // this.TableList = new List<string>();
             this.ColumnList = new List<Columns>();
             this.PrimaryKeyList = new List<PrimaryKey>();
             this.ForeignKeyList = new List<ForeignKey>();
             this.UniqueKeyList = new List<UniqueKey>();
-            this.TableList1 = new List<Tables>();
+            this.TableList = new List<Tables>();
 
             GetDataBaseSchema(connectionString);
            // ShowDataBaseSchema();
 
         }
 
-        public List<string> TableList { get; set; }
+        //public List<string> TableList { get; set; }
         public List<Columns> ColumnList { get; set; }
         public List<PrimaryKey> PrimaryKeyList { get; set; }
         public List<UniqueKey> UniqueKeyList { get; set; }
         public List<ForeignKey> ForeignKeyList { get; set; }
-        public List<Tables> TableList1 { get; set; }
+        public List<Tables> TableList { get; set; }
 
         private void ShowDataBaseSchema()
         {
@@ -104,10 +104,10 @@ namespace DatabaseManager
 
                     // index 1 is the schema name and index 2 is the tablename
                     String tableName = rowTable.ItemArray[2].ToString();
-                    this.TableList.Add(tableName);
-                    //string schemaName = rowTable.ItemArray[1].ToString();
-                    //Tables table = new DatabaseManager.Tables() { TableName = tableName, SchemaName = schemaName };
-                    //this.TableList1.Add(table);
+                    //this.TableList.Add(tableName);
+                    string schemaName = rowTable.ItemArray[1].ToString();
+                    Tables table = new DatabaseManager.Tables() { TableName = tableName, SchemaName = schemaName };
+                    this.TableList.Add(table);
 
                     string[] restrictionsColumns = new string[4];
                     restrictionsColumns[2] = tableName;
@@ -116,7 +116,9 @@ namespace DatabaseManager
                     foreach (System.Data.DataRow rowColumn in schemaColumns.Rows)
                     {
                         string ColumnName = rowColumn[3].ToString();
-                        this.ColumnList.Add(new Columns() { TableName = tableName, FieldName = ColumnName });
+                        string columnType = rowColumn[7].ToString();                       
+                        this.ColumnList.Add(new Columns() { TableName = tableName, FieldName = ColumnName, ColumnType = columnType });
+
                     }
 
                     string[] restrictionsPrimaryKey = new string[4];
@@ -185,6 +187,7 @@ namespace DatabaseManager
     {
         public string TableName { get; set; }
         public string FieldName { get; set; }
+        public string ColumnType { get; set; }
     }
 
     public class PrimaryKey

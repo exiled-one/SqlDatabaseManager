@@ -78,7 +78,7 @@ namespace DatabaseManager
 
         }
 
-        public async void Query1(object objTable)
+        public async void Query1(object objTable, object objSchema)
         {
 
 
@@ -86,7 +86,11 @@ namespace DatabaseManager
             {
                 string table = objTable as string;
 
-                string query = $"SELECT * FROM Person.{table};";
+                string schema = objSchema as string;
+
+                string query = $"SELECT * FROM {schema}.{table};";
+
+                Console.WriteLine($"Query = {query}");
 
                 SqlConnection conn = new SqlConnection(myConnectionString);
 
