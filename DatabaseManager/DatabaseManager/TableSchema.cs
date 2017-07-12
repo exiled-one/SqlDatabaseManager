@@ -20,7 +20,7 @@ namespace DatabaseManager
             this.TableList = new List<Tables>();
 
             GetDataBaseSchema(connectionString);
-           // ShowDataBaseSchema();
+            ShowDataBaseSchema();
 
         }
 
@@ -45,17 +45,18 @@ namespace DatabaseManager
             //Console.WriteLine("--------------------------------------------------------");
             //foreach (Columns c in ColumnList)
             //{
-            //    Console.WriteLine();
-            //    Console.WriteLine(c.TableName);
-            //    Console.WriteLine(c.FieldName);
-            //    Console.WriteLine();
+            //    Console.WriteLine(c.ColumnType);
+            //    //Console.WriteLine(c.TableName);
+            //    //Console.WriteLine(c.FieldName);
+                
+             
             //}
             //Console.WriteLine();
             //Console.WriteLine("PrimaryKeyList");
             //Console.WriteLine("--------------------------------------------------------");
             //foreach (PrimaryKey pk in PrimaryKeyList)
             //{
-            //    Console.WriteLine();
+            //   Console.WriteLine();
             //    Console.WriteLine(pk.TableName);
             //    Console.WriteLine(pk.FieldName);
             //    Console.WriteLine(pk.PrimaryKeyName);
@@ -130,8 +131,22 @@ namespace DatabaseManager
                     {
                         string indexName = rowPrimaryKey[2].ToString();
 
+                       
+                       
                         if (indexName.IndexOf("PK_") != -1)
                         {
+                            //for (int count = 0; count < 10; count++)
+                            //{
+                            //    Console.WriteLine($"Count: {count} {rowPrimaryKey[count]}");
+                            //    Console.WriteLine();
+
+                            //}
+                            //if (tableName == "PersonPhone")
+                            //{
+                            //    Console.WriteLine(rowPrimaryKey[6]);
+                            //    Console.WriteLine(indexName);
+                            //}
+
                             this.PrimaryKeyList.Add(new PrimaryKey()
                             {
                                 TableName = tableName,

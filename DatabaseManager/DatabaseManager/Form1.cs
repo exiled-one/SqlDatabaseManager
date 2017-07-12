@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MySql.Data;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
+using System.Globalization;
 
 namespace DatabaseManager
 {
@@ -121,14 +122,17 @@ namespace DatabaseManager
             }
         }
 
-        private void doQuery(object query, object schema)
+        private void doQuery(object table, object schema)
         {
             try
             {
+                //TODO: Modularize the queryButton, doQuery, updateButton, saveButton methods so queries can easily be passed around without
+                // duplicate Task code.
+
                 clearTable();
                 //Action<object, object> action;
                 //action = network.Query1;
-                Task task = new Task(() => network.Query1(query, schema));
+                Task task = new Task(() => network.Query1(table, schema));
                 //Task task = new Task(action, query);
                 Task task2 = task.ContinueWith(DisplayTable1);
                 task.Start();
@@ -288,6 +292,8 @@ namespace DatabaseManager
             string colType = null;
 
             List<PrimaryKey> primaryKeys = ts.PrimaryKeyList;
+            List<UniqueKey> uniqueKeys = ts.UniqueKeyList;
+
             try
             {
                 object objId = dataGridView1.Rows[e.RowIndex].Cells[0].Value;
@@ -300,11 +306,17 @@ namespace DatabaseManager
                 string schema = treeView1.SelectedNode.Parent.Name;
                 string tableName = treeView1.SelectedNode.Text;
                
+                //TODO: There is an issue with the way the primary key is determined for different tables it works or doesn't work.
                 foreach(PrimaryKey pk in primaryKeys)
                 {
                     if(pk.TableName == tableName)
                     {
-                        primaryKey = pk.FieldName;
+                        // this may only work for my specific database to dtermine the primaryKey.
+                        // it works because primaryKey the correct columnName for the primaryKey always seems to be the first one returned by GetSchema("IndexInfo")
+                        if (primaryKey == null) 
+                        {
+                            primaryKey = pk.FieldName;
+                        }                       
                     }
                 }    
                 
@@ -338,36 +350,176 @@ namespace DatabaseManager
         {
             List<CellChange> changes = t.GetChanges();
 
-            foreach(CellChange change in changes)
+            try
             {
-
-                //TODO: Add those to be dynamically determined for the command string below.
-                //TODO: Implement a way to determine tha value type of change.Value
-                //TODO: So that this method can deal with all value types supported by SQL.
-                //TODO:  Look at implementing a dictionary as shown in link below
-                // https://stackoverflow.com/questions/1720707/getschemacolumns-return-datatype
-                //TODO: Look into foriegn key restrictions and what it means
-
-                Console.WriteLine(change.ColType);
-                if(change.ColType == "nvarchar")
+                foreach (CellChange change in changes)
                 {
-                    string query = $"UPDATE {change.Schema}.{change.Table} SET {change.ColName} = '{change.Value}' WHERE {change.PrimaryKeyName} = {change.Id};";
-                    network.Save(query);
-                }
-                
-                if(change.ColType == "int")
-                {
-                    string query = $"UPDATE {change.Schema}.{change.Table} SET {change.ColName} = {change.Value} WHERE {change.PrimaryKeyName} = {change.Id};";
-                    network.Save(query);
-                }
 
-                if (change.ColType == "tinyint")
-                {
-                    string query = $"UPDATE {change.Schema}.{change.Table} SET {change.ColName} = {change.Value} WHERE {change.PrimaryKeyName} = {change.Id};";
-                    network.Save(query);
+                    
+                   
+                    //TODO: Test the method for determining the primary key with other sample databases, and other DB Server types (e.g MySQL, Oracle)
+                    //TODO:  Look at implementing a dictionary as shown in link below
+                    // https://stackoverflow.com/questions/1720707/getschemacolumns-return-datatype
+                    //TODO: Look into foriegn key restrictions and what it means
+                    //TODO: Add string length validation (1- 255 chars? ) add int, smallint, tinyint max / min value checking, etc..
+                    //TODO: Add input validation on the datagridview1 based on the column types.
+
+                    Console.WriteLine(change.ColType);
+
+                    string query = $"UPDATE {change.Schema}.{change.Table} SET {change.ColName} = {updateStringTypeConverter(change.Value.ToString(), change.ColType)} WHERE {change.PrimaryKeyName} = {change.Id};";
+                    bool result = network.Save(query);
+
+                    if (!result)
+                        MessageBox.Show("Save failed. No data has been altered.");
+                    
                 }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }         
+
+                
+            }
            
+        
+
+        private string updateStringTypeConverter(string colValue, string colType)
+        {
+            switch (colType)
+            {
+                case "nvarchar":
+                    {
+                        colValue = $"'{colValue}'";
+                        break;
+                    }
+                case "nchar":
+                    {
+                        colValue = $"'{colValue}'";
+                        break;
+                    }
+                case "varchar":
+                    {
+                        colValue = $"'{colValue}'";
+                        break;
+                    }
+
+                case "int":
+                    {
+                        colValue = $"{colValue}";
+                        break;
+                    }
+                case "tinyint":
+                    {
+                        colValue = $"{colValue}";
+                        break;
+                    }
+                case "smallint":
+                    {
+                        colValue = $"{colValue}";
+                        break;
+                    }
+                case "bit":
+                    {
+                        colValue = $"{colValue}";
+                        break;
+                    }
+                case "bigint":
+                    {
+                        colValue = $"{colValue}";
+                        break;
+                    }
+                case "money":
+                    {
+                        colValue = $"{getMoneyValue(colValue)}";
+                        break;
+                    }
+                case "smallmoney":
+                    {
+                        colValue = $"{getMoneyValue(colValue)}";
+                        break;
+                    }
+                case "decimal":
+                    {
+                        colValue = $"{getMoneyValue(colValue)}";
+                        break;
+                    }
+                case "datetime":
+                    {
+                        colValue = $"'{getDateTimeValue(colValue)}'";
+                        break;
+                    }
+                case "datetime2":
+                    {
+                        colValue = $"'{getDateTimeValue(colValue)}'";
+                        break;
+                    }
+                case "time":
+                    {
+                        colValue = $"'{getDateTimeValue(colValue)}'";
+                        break;
+                    }
+                //case "uniqueidentifier":
+                //    {
+                //        throw new InvalidOperationException("The Guid cannot be changed once it is created.");
+                //        break;
+                //    }
+                //case "xml":
+                //    {
+                //        throw new NotImplementedException("XML update has not been implemented yet.");
+                //    }
+                //case "geography":
+                //    {
+                //        throw new NotImplementedException("XML update has not been implemented yet.");
+                //    }
+                //case "varbinary":
+                //    {
+                //        throw new NotImplementedException("VARBINARY update has not been implemented yet.");
+                //    }
+                //case "hierarchyid":
+                //    {
+                //        throw new NotImplementedException("HIERARCHYID update has not been implemented yet.");
+                //    }
+
+
+                default:
+                    {
+                        colValue = $"{colValue}";
+                        break;
+                    }
+            }
+            return colValue;       
+        }
+
+        private string getDateTimeValue(string colValue)
+        {
+            DateTime dateTime = DateTime.Now;
+
+            DateTime.TryParse(colValue, out dateTime);
+
+            DateTime minValue = DateTime.Parse(System.Data.SqlTypes.SqlDateTime.MinValue.ToString());
+            DateTime maxValue = DateTime.Parse(System.Data.SqlTypes.SqlDateTime.MaxValue.ToString());
+
+            if(dateTime < minValue)
+            {
+                dateTime = minValue;
+            }
+            if(dateTime > maxValue)
+            {
+                dateTime = maxValue;
+            }
+
+            return dateTime.ToString();
+
+
+        }
+
+        private string getMoneyValue(string colValue)
+        {
+            decimal d = 0;
+            Decimal.TryParse(colValue, out d);
+
+            return d.ToString();
         }
 
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)

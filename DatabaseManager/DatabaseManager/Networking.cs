@@ -13,7 +13,10 @@ namespace DatabaseManager
         //TODO: or set it up so that the database schema/ list of tables is pulled automatically when
         //TODO: the database is first connected to, and then the table name changes depending on which one
         //TODO: is selected.
-        
+        //TODO: Parameterize all SQL Commands so that they are not susceptible to SQL injection attacks.
+        //TODO: Also - write the updates / queries / inserts using LINQ to SQL and LINQ to XML etc..
+        //TODO: Test the speed of both methods to see which is more effecient.
+
         
         Table t = new Table("EmailAddress", 5, 0);
         string myConnectionString;
@@ -29,7 +32,7 @@ namespace DatabaseManager
         // returns table object with all of the table data stored in it
         public Table GetTable()
         {
-            return t;
+            return t; 
         }
 
         public string GetConnectionString()
@@ -37,7 +40,7 @@ namespace DatabaseManager
             return myConnectionString;
         }
         // performs SQL UPDATE to write all of the changes the user made in datagridview1
-        public void Save(string query)
+        public bool Save(string query)
         {
             SqlConnection conn = new SqlConnection(myConnectionString);
 
@@ -49,9 +52,14 @@ namespace DatabaseManager
 
             int result = cmd.ExecuteNonQuery();
 
-            Console.WriteLine($"Result: {result}");
-
             conn.Close();
+
+            if (result > 0)
+                return true;
+            else
+                return false;
+
+           
 
         }
 

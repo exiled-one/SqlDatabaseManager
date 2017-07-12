@@ -132,7 +132,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeView1.Location = new System.Drawing.Point(3, 105);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(202, 513);
+            this.treeView1.Size = new System.Drawing.Size(202, 514);
             this.treeView1.TabIndex = 11;
             this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             // 
@@ -180,13 +180,13 @@
             this.maximizeButton.FlatAppearance.BorderSize = 0;
             this.maximizeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
             this.maximizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.maximizeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.maximizeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.maximizeButton.ForeColor = System.Drawing.Color.White;
             this.maximizeButton.Location = new System.Drawing.Point(717, 1);
             this.maximizeButton.Name = "maximizeButton";
             this.maximizeButton.Size = new System.Drawing.Size(27, 27);
             this.maximizeButton.TabIndex = 1;
-            this.maximizeButton.Text = "*";
+            this.maximizeButton.Text = "□";
             this.maximizeButton.UseVisualStyleBackColor = false;
             this.maximizeButton.Click += new System.EventHandler(this.maximizeButton_Click);
             // 
@@ -199,11 +199,12 @@
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitButton.ForeColor = System.Drawing.Color.White;
-            this.exitButton.Location = new System.Drawing.Point(750, 1);
+            this.exitButton.Location = new System.Drawing.Point(749, 3);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(27, 27);
             this.exitButton.TabIndex = 0;
             this.exitButton.Text = "X";
+            this.exitButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
